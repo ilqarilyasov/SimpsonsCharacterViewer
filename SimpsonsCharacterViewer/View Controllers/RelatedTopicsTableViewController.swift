@@ -52,5 +52,37 @@ class RelatedTopicsTableViewController: UITableViewController {
         
         return cell
     }
-   
+
+    
+    // MARK: - Navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ShowTopicDetail" {
+            guard let destinationVC = segue.destination as? TopicDetailViewController,
+                let indexPath = tableView.indexPathForSelectedRow else { return }
+            
+            let topic = relatedTopics[indexPath.row]
+            destinationVC.topic = topic
+        }
+    }
+
+}
+
+extension RelatedTopicsTableViewController: UISearchBarDelegate {
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let text = searchBar.text else { return }
+        
+        client.performSearch(for: text) { (result) in
+            switch result {
+            case .failure(let error):
+                NSLog("Error: \(error)")
+                // Show alert
+                break
+            case .success(let relatedTopics):
+                self.relatedTopics = relatedTopics
+            }
+        }
+    }
+    
 }
