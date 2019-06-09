@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreDuckDuckGo
 
 class TopicDetailViewController: UIViewController {
     
