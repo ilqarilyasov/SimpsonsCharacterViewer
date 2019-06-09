@@ -97,4 +97,9 @@ extension RelatedTopicsTableViewController: UISearchBarDelegate {
         }
     }
     
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        guard !searchText.isEmpty else { return }        
+        relatedTopics = relatedTopics.filter { $0.text?.contains(searchText) ?? false }
+    }
+    
 }
