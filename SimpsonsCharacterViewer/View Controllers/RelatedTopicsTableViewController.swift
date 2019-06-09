@@ -33,6 +33,17 @@ class RelatedTopicsTableViewController: UITableViewController {
         super.viewDidLoad()
         
         searchBar.delegate = self
+        
+        client.performSearch(for: "simpsons characters") { (result) in
+            switch result {
+            case .failure(let error):
+                NSLog("Error: \(error)")
+                // Show alert
+                break
+            case .success(let relatedTopics):
+                self.relatedTopics = relatedTopics
+            }
+        }
     }
 
     
