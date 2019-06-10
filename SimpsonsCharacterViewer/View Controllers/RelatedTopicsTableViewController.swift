@@ -98,8 +98,10 @@ extension RelatedTopicsTableViewController: UISearchBarDelegate {
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        guard !searchText.isEmpty else { return }        
-        relatedTopics = relatedTopics.filter { $0.text?.contains(searchText) ?? false }
+        guard !searchText.isEmpty else { return }
+        
+        // Make everything lowercase and then check
+        relatedTopics = relatedTopics.filter { $0.text?.lowercased().contains(searchText.lowercased()) ?? false }
     }
     
 }
